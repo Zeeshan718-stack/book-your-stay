@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
-import { Menu, X, MapPin } from 'lucide-react'
-import { Link, NavLink } from 'react-router-dom'
+import { Menu, X, MapPin, ChevronDown } from 'lucide-react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -15,20 +15,15 @@ const navLinks = [
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
-  const closeMenu = () => {
-    setMenuOpen(false)
-  }
+  const closeMenu = () => setMenuOpen(false)
 
   return (
     <header className="site-header">
       <div className="container header-inner">
 
-        <Link
-          to="/"
-          className="header-logo"
-          onClick={closeMenu}
-        >
+        <Link to="/" className="header-logo" onClick={closeMenu}>
           BookYourStay<span>.</span>
         </Link>
 
@@ -37,6 +32,7 @@ function Header() {
             <NavLink
               key={link.href}
               to={link.href}
+              end={link.href === '/'}
               onClick={closeMenu}
               className={({ isActive }) =>
                 isActive ? 'active' : ''
@@ -51,7 +47,7 @@ function Header() {
             className="header-book-btn"
             onClick={closeMenu}
           >
-            <MapPin size={16} />
+            <MapPin size={17} />
             Explore Stays
           </Link>
         </nav>
@@ -59,7 +55,7 @@ function Header() {
         <button
           className="mobile-menu-btn"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
         >
           {menuOpen ? <X size={25} /> : <Menu size={25} />}
