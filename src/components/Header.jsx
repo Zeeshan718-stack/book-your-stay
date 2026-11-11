@@ -1,15 +1,16 @@
 
 import React, { useState } from 'react'
 import { Menu, X, MapPin } from 'lucide-react'
+import { Link, NavLink } from 'react-router-dom'
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Cities', href: '#cities' },
-  { label: 'Categories', href: '#categories' },
-  { label: 'Services', href: '#services' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Cities', href: '/cities' },
+  { label: 'Accommodation', href: '/accommodation' },
+  { label: 'Services', href: '/services' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Contact', href: '/contact' }
 ]
 
 function Header() {
@@ -23,29 +24,36 @@ function Header() {
     <header className="site-header">
       <div className="container header-inner">
 
-        <a href="#home" className="header-logo" onClick={closeMenu}>
+        <Link
+          to="/"
+          className="header-logo"
+          onClick={closeMenu}
+        >
           BookYourStay<span>.</span>
-        </a>
+        </Link>
 
         <nav className={`header-nav ${menuOpen ? 'menu-open' : ''}`}>
           {navLinks.map((link) => (
-            <a
+            <NavLink
               key={link.href}
-              href={link.href}
+              to={link.href}
               onClick={closeMenu}
+              className={({ isActive }) =>
+                isActive ? 'active' : ''
+              }
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
 
-          <a
-            href="#directory"
+          <Link
+            to="/accommodation"
             className="header-book-btn"
             onClick={closeMenu}
           >
             <MapPin size={16} />
             Explore Stays
-          </a>
+          </Link>
         </nav>
 
         <button

@@ -1,28 +1,27 @@
 
-import React from 'react'
 import { MapPin, ArrowRight } from 'lucide-react'
 
 const cities = [
   {
     name: 'Lahore',
     subtitle: 'The Heart of Pakistan',
-    listings: '200+',
     image: 'https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?w=900',
-    description: 'Explore luxury hotels, boutique stays and comfortable guest houses.'
+    description: 'Explore accommodation across Lahore and its popular neighbourhoods.',
+    areas: 8
   },
   {
     name: 'Islamabad',
     subtitle: 'The Beautiful Capital',
-    listings: '150+',
     image: 'https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=900',
-    description: 'Discover peaceful stays, scenic surroundings and premium hotels.'
+    description: 'Discover hotels and accommodation throughout Islamabad.',
+    areas: 7
   },
   {
     name: 'Karachi',
     subtitle: 'The City of Lights',
-    listings: '180+',
     image: 'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?w=900',
-    description: 'Find comfortable accommodation near business and coastal areas.'
+    description: 'Find accommodation in Karachi’s popular neighbourhoods.',
+    areas: 7
   }
 ]
 
@@ -33,10 +32,10 @@ function Cities() {
 
         <div className="section-heading">
           <span className="section-tag">EXPLORE DESTINATIONS</span>
-          <h2>Choose Your City</h2>
+          <h2>Explore Cities Across Pakistan</h2>
           <p>
-            Explore accommodation options in Pakistan's
-            most popular destinations.
+            Discover popular cities, neighbourhoods and accommodation
+            options across Pakistan.
           </p>
         </div>
 
@@ -47,12 +46,12 @@ function Cities() {
               <div className="city-image">
                 <img
                   src={city.image}
-                  alt={`${city.name} destination`}
+                  alt={city.name}
                   loading="lazy"
                 />
 
                 <span className="city-listing-badge">
-                  {city.listings} Listings
+                  {city.areas} Popular Areas
                 </span>
               </div>
 
@@ -63,11 +62,13 @@ function Cities() {
                 </span>
 
                 <h3>{city.name}</h3>
-
                 <p>{city.description}</p>
 
-                <a href="#directory" className="city-explore">
-                  Explore Stays <ArrowRight size={17} />
+                <a
+                  href={`#directory-${city.name.toLowerCase()}`}
+                  className="city-explore"
+                >
+                  Explore Areas <ArrowRight size={17} />
                 </a>
               </div>
 

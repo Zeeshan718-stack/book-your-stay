@@ -1,44 +1,67 @@
 
 import { MapPin, ArrowUpRight } from 'lucide-react'
 
-const locations = [
+const cities = [
   {
-    city: 'Lahore',
-    area: 'Gulberg',
-    description: 'Explore hotels and comfortable stays in Lahore’s popular Gulberg area.',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+    name: 'Lahore',
+    areas: [
+      'Gulberg',
+      'DHA',
+      'Model Town',
+      'Johar Town',
+      'Bahria Town',
+      'Mall Road',
+      'Garden Town',
+      'Cantt'
+    ]
   },
   {
-    city: 'Lahore',
-    area: 'DHA',
-    description: 'Discover accommodation options in the well-connected DHA area.',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800'
+    name: 'Islamabad',
+    areas: [
+      'F-6',
+      'F-7',
+      'F-8',
+      'E-11',
+      'Blue Area',
+      'DHA',
+      'Bahria Town'
+    ]
   },
   {
-    city: 'Islamabad',
-    area: 'F-6 & F-7',
-    description: 'Find convenient places to stay near Islamabad’s popular sectors.',
-    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800'
-  },
-  {
-    city: 'Islamabad',
-    area: 'Blue Area',
-    description: 'Explore stays close to business, shopping and dining destinations.',
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'
-  },
-  {
-    city: 'Karachi',
-    area: 'Clifton',
-    description: 'Browse accommodation options in Karachi’s well-known Clifton area.',
-    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800'
-  },
-  {
-    city: 'Karachi',
-    area: 'DHA',
-    description: 'Discover places to stay in Karachi’s popular DHA neighbourhood.',
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'
+    name: 'Karachi',
+    areas: [
+      'Clifton',
+      'DHA',
+      'Gulshan-e-Iqbal',
+      'PECHS',
+      'Saddar',
+      'Shahrah-e-Faisal',
+      'Gulistan-e-Johar'
+    ]
   }
 ]
+
+const hotelImages = [
+  'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
+  'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800'
+]
+
+function createHotels(area, city) {
+  return [
+    {
+      name: `${area} Hotel 01`,
+      image: hotelImages[0],
+      description: `Explore accommodation at ${area}, ${city}. This is a sample hotel listing.`,
+      facilities: ['Comfortable Rooms', 'Wi-Fi', 'Room Service']
+    },
+    {
+      name: `${area} Hotel 02`,
+      image: hotelImages[1],
+      description: `Discover another accommodation option in ${area}, ${city}. This is a sample hotel listing.`,
+      facilities: ['Guest Rooms', 'Parking', 'Reception']
+    }
+  ]
+}
 
 function Directory() {
   return (
@@ -46,40 +69,115 @@ function Directory() {
       <div className="container">
 
         <div className="directory-heading">
-          <span className="section-tag">EXPLORE OUR DIRECTORY</span>
-          <h2>Find Stays in Popular Areas</h2>
+          <span className="section-tag">ACCOMMODATION DIRECTORY</span>
+
+          <h2>Explore Popular Areas & Hotels</h2>
+
           <p>
-            Explore accommodation locations across Pakistan
-            and discover an area that works for your trip.
+            Browse different cities, explore their neighbourhoods
+            and discover accommodation listings.
           </p>
         </div>
 
-        <div className="directory-grid">
-          {locations.map((location, index) => (
-            <article className="directory-card" key={index}>
-              <div className="directory-image">
-                <img src={location.image} alt={`${location.area}, ${location.city}`} />
-                <span className="directory-city">
-                  {location.city}
-                </span>
+        {cities.map((city) => (
+          <div
+            className="directory-city-group"
+            id={`directory-${city.name.toLowerCase()}`}
+            key={city.name}
+          >
+
+            <div className="directory-city-heading">
+              <div>
+                <span className="section-tag">EXPLORE DESTINATION</span>
+                <h3>{city.name}</h3>
+                <p>
+                  Explore popular areas and accommodation
+                  in {city.name}, Pakistan.
+                </p>
               </div>
 
-              <div className="directory-content">
-                <div className="directory-location">
-                  <MapPin size={16} />
-                  <span>{location.city}, Pakistan</span>
-                </div>
+              <span className="directory-area-count">
+                {city.areas.length} Areas
+              </span>
+            </div>
 
-                <h3>{location.area}</h3>
-                <p>{location.description}</p>
+            <div className="directory-grid">
 
-                <a href="#contact">
-                  Explore Area <ArrowUpRight size={16} />
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+              {city.areas.map((area, index) => (
+                <article
+                  className="directory-card"
+                  id={`area-${city.name.toLowerCase()}-${index}`}
+                  key={area}
+                >
+
+                  <div className="directory-image">
+                    <img
+                      src={hotelImages[index % 2]}
+                      alt={`${area}, ${city.name}`}
+                      loading="lazy"
+                    />
+
+                    <span className="directory-city">
+                      {city.name}
+                    </span>
+                  </div>
+
+                  <div className="directory-content">
+
+                    <div className="directory-location">
+                      <MapPin size={16} />
+                      <span>{city.name}, Pakistan</span>
+                    </div>
+
+                    <h3>{area}</h3>
+
+                    <p>
+                      Explore accommodation options and
+                      hotel listings in {area}.
+                    </p>
+
+                    <div className="area-hotel-list">
+                      <h4>Hotels in {area}</h4>
+
+                      {createHotels(area, city.name).map((hotel) => (
+                        <details
+                          className="hotel-detail"
+                          key={hotel.name}
+                        >
+                          <summary>
+                            <span>{hotel.name}</span>
+                            <ArrowUpRight size={17} />
+                          </summary>
+
+                          <div className="hotel-detail-content">
+                            <img
+                              src={hotel.image}
+                              alt={hotel.name}
+                              loading="lazy"
+                            />
+
+                            <p>{hotel.description}</p>
+
+                            <h5>Facilities</h5>
+
+                            <ul>
+                              {hotel.facilities.map((facility) => (
+                                <li key={facility}>{facility}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </details>
+                      ))}
+
+                    </div>
+
+                  </div>
+                </article>
+              ))}
+
+            </div>
+          </div>
+        ))}
 
       </div>
     </section>
