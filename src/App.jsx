@@ -90,26 +90,49 @@ function ContactPage() {
   )
 }
 
+const handleInformationClick = (event) => {
+  if (
+    event.target.closest(
+      'input, textarea, select, option, [contenteditable="true"]'
+    )
+  ) {
+    return
+  }
+
+  const number = '923114746202'
+  const message = 'Assalam o Alaikum! I want to know about accommodation.'
+
+  window.open(
+    `https://wa.me/${number}?text=${encodeURIComponent(message)}`,
+    '_blank',
+    'noopener,noreferrer'
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/cities" element={<CitiesPage />} />
-        <Route path="/accommodation" element={<AccommodationPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <div onClick={handleInformationClick}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/cities" element={<CitiesPage />} />
+          <Route path="/accommodation" element={<AccommodationPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </div>
+
       <WhatsAppButton />
     </BrowserRouter>
   )
 }
 
 export default App
+

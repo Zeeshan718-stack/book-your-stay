@@ -2,7 +2,7 @@
 import { MessageCircle } from 'lucide-react'
 
 const whatsappNumbers = [
-  '923001234567',
+  '923114746202',
 ]
 
 function WhatsAppButton() {
